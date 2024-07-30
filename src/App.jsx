@@ -1,11 +1,14 @@
-import './App.css'
+import "./App.css";
+import MarketcapSideBar from "./components/MarketcapSideBar";
+import Nav from "./components/Nav";
 
 function App() {
   return (
     <>
-      <h1>crypto dashboard incoming</h1>
+      <Nav />
+      <MarketcapSideBar />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
