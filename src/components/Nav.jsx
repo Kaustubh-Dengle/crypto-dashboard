@@ -1,15 +1,10 @@
+import logo from "../assets/alma-logo.png"
+
 export default function Nav() {
   return (
     <>
-      <nav>
-        <div className="inline px-1 py-1 mb-1 mt-1 font-title">
-          <img
-            src="alma-logo.png"
-            alt="Logo of AlmaBetter"
-            className="w-44 h-44"
-          ></img>
-          <span>AlmaBetter</span>
-        </div>
+      <nav className="flex w-full p-2 h-20 shadow-md">
+        <img src={logo} alt="Almabetter logo" className="p-3 pl-10 h-16 object-center" />
       </nav>
     </>
   );
