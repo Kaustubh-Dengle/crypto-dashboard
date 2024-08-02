@@ -1,5 +1,5 @@
 import "./App.css";
-import Exchange from "./components/Exchange";
+import Portfolio from "./components/Portfolio";
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
   //       </div>
   //     </>
   //   );
-  return <><Exchange></Exchange></>;
+  return <><Portfolio /></>;
 }
 
 export default App;
