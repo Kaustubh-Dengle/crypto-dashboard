@@ -1,5 +1,5 @@
 import "./App.css";
-import Portfolio from "./components/Portfolio";
+import LineChart from "./components/LineChart";
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
   //       </div>
   //     </>
   //   );
-  return <><Portfolio /></>;
+  return <><LineChart /></>;
 }
 
 export default App;
