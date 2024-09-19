@@ -1,5 +1,5 @@
 import "./App.css";
-import LineChart from "./components/LineChart";
+import MarketcapSideBar from "./components/MarketcapSideBar";
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
   //       </div>
   //     </>
   //   );
-  return <><LineChart /></>;
+  return <><MarketcapSideBar /></>;
 }
 
 export default App;
