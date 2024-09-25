@@ -43,7 +43,7 @@ export default function LineChart() {
 
   return (
     <>
-      <div className="w-2/3 p-4 rounded-xl shadow-md">
+      <div className=" p-4 rounded-xl shadow-md bg-white col-span-3 row-span-1">
         <div className="grid col-span-13 gap-2">
           <button className="col-start-3 col-span-1 border-2 rounded-xl shadow-md hover:bg-blue-100 h-[54px]">
             1D

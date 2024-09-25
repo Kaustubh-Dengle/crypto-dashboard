@@ -1,7 +1,7 @@
 export default function SearchBar() {
   return (
     <>
-      <div className="h-14 w-full">
+      <div className="h-14 w-full col-span-2">
         <input
           type="search"
           placeholder="Search by coin"

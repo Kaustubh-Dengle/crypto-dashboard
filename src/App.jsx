@@ -1,6 +1,6 @@
 import "./App.css";
-import MarketcapSideBar from "./components/MarketcapSideBar";
-
+import MainDashboard from "./components/MainDashboard";
+import Nav from "./components/Nav";
 
 function App() {
   //   return (
@@ -21,7 +21,14 @@ function App() {
   //       </div>
   //     </>
   //   );
-  return <><MarketcapSideBar /></>;
+  return (
+    <>
+      <Nav />
+      <div className="pr-[128px] pl-[128px] px-[24px] py-[24px]">
+        <MainDashboard />
+      </div>
+    </>
+  );
 }
 
 export default App;

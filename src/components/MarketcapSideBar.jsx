@@ -104,7 +104,7 @@ export default function MarketcapSideBar() {
   }, []);
 
   return (
-    <div className="w-1/4 p-4 m-4">
+    <div className="p-4 row-span-3 shadow-md rounded-xl bg-white">
       <p className="font-bold pt-2 pb-2">Cryptocurrency by marketcap</p>
       {coins.map((coin) => (
         <div key={coin.id} className="grid">
@@ -113,7 +113,7 @@ export default function MarketcapSideBar() {
             <h2>
               {coin.name} ({coin.symbol})
             </h2>
-            <div className="flex">
+            <div className="flex gap-3">
               <p>Price: ${coin.current_price}</p>
               <p>Market Cap: ${coin.market_cap}</p>
             </div>

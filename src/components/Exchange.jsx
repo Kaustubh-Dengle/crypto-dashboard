@@ -3,16 +3,19 @@ import Button from "./UI/Button";
 export default function Exchange() {
   return (
     <>
-      <div className="grid grid-rows-4 grid-cols-2 gap-2 shadow-md rounded-xl w-1/4 pb-4">
-        <div className="col-span-2 bg-white font-bold p-2 pl-8 flex items-center">Exchange Coins</div>
-        <div className="flex col-span-1 items-center">
-          <p className="text-[#ED7B2B] px-8">Sell</p>
-          <select className="rounded-xl shadow-md p-4 bg-white mb-2 font-bold h-[56px] text-center">
-            <option>Bitcoin</option>
-            <option>Ethereum</option>
-            <option>Dogecoin</option>
-          </select>
-        </div>
+      <div className="grid col-span-1 row-span-1">
+        <div className="grid grid-rows-4 grid-cols-2 gap-2 shadow-md rounded-xl pb-4 bg-white">
+          <div className="col-span-2 font-bold p-2 pl-8 flex items-center">
+            Exchange Coins
+          </div>
+          <div className="flex col-span-1 items-center">
+            <p className="text-[#ED7B2B] px-8">Sell</p>
+            <select className="rounded-xl shadow-md p-4 bg-white mb-2 font-bold h-[56px] text-center">
+              <option>Bitcoin</option>
+              <option>Ethereum</option>
+              <option>Dogecoin</option>
+            </select>
+          </div>
           <div className="pl-3">
             <input
               type="number"
@@ -20,18 +23,21 @@ export default function Exchange() {
               className="bg-white text-gray-700 shadow-md h-[56px] border-gray-400 rounded-xl"
             ></input>
           </div>
-        <div className="flex col-span-1 items-center">
-          <p className="text-[#4C9D8A] px-8">Buy</p>
-          <select className="rounded-xl shadow-md p-4 bg-white mb-2 font-bold h-[56px] text-center">
-            <option>Bitcoin</option>
-            <option>Ethereum</option>
-            <option>Dogecoin</option>
-          </select>
-        </div>
+          <div className="flex col-span-1 items-center">
+            <p className="text-[#4C9D8A] px-8">Buy</p>
+            <select className="rounded-xl shadow-md p-4 bg-white mb-2 font-bold h-[56px] text-center">
+              <option>Bitcoin</option>
+              <option>Ethereum</option>
+              <option>Dogecoin</option>
+            </select>
+          </div>
           <div className="pl-3 flex items-center">
             <p className="">Value: 1234</p>
           </div>
-        <div className="flex col-span-2 justify-center"><Button>Exchange</Button></div>
+          <div className="flex col-span-2 justify-center">
+            <Button>Exchange</Button>
+          </div>
+        </div>
       </div>
     </>
   );
