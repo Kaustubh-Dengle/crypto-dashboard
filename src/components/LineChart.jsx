@@ -66,7 +66,7 @@ export default function LineChart() {
           </div>
         </div>
 
-        <div className="mt-4">
+        <div className="flex justify-center mt-4">
           <Line data={data} options={options} />
         </div>
       </div>
