@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       <Nav />
-      <div className="pr-[128px] pl-[128px] px-[24px] py-[24px]">
+      <div className="pr-[128px] pl-[128px] px-[16px] py-[16px]">
         <MainDashboard />
       </div>
     </>

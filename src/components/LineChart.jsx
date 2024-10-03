@@ -39,7 +39,10 @@ export default function LineChart() {
       },
     ],
   };
-  const options = {};
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
 
   return (
     <>
@@ -66,7 +69,7 @@ export default function LineChart() {
           </div>
         </div>
 
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center m-4">
           <Line data={data} options={options} />
         </div>
       </div>
