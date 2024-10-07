@@ -1,4 +1,5 @@
 import Button from "./UI/Button";
+import DropDown from "./UI/DropDown";
 
 export default function Exchange() {
   return (
@@ -10,11 +11,15 @@ export default function Exchange() {
           </div>
           <div className="flex col-span-1 items-center">
             <p className="text-[#ED7B2B] px-8">Sell</p>
-            <select className="rounded-xl shadow-md p-4 bg-white mb-2 font-bold h-[56px] text-center">
+            {/* <select className="rounded-xl shadow-md p-4 bg-white mb-2 font-bold h-[56px] text-center">
               <option>Bitcoin</option>
               <option>Ethereum</option>
               <option>Dogecoin</option>
-            </select>
+            </select> */}
+            <DropDown
+              title="Currency"
+              options={["Bitcoin", "Ethereum", "Dogecoin"]}
+            />
           </div>
           <div className="pl-3">
             <input
@@ -25,11 +30,17 @@ export default function Exchange() {
           </div>
           <div className="flex col-span-1 items-center">
             <p className="text-[#4C9D8A] px-8">Buy</p>
-            <select className="rounded-xl shadow-md p-4 bg-white mb-2 font-bold h-[56px] text-center">
+            {/* <select className="rounded-xl shadow-md p-4 bg-white mb-2 font-bold h-[56px] text-center">
               <option>Bitcoin</option>
               <option>Ethereum</option>
               <option>Dogecoin</option>
-            </select>
+            </select> */}
+            <div className="">
+              <DropDown
+                title="Currency"
+                options={["Bitcoin", "Ethereum", "Dogecoin"]}
+              />
+            </div>
           </div>
           <div className="pl-3 flex items-center">
             <p className="">Value: 1234</p>

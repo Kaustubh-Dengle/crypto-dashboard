@@ -64,8 +64,8 @@ export default function LineChart() {
             1Y
           </button>
           <div className="col-start-11 col-span-6 flex gap-4">
-            <DropDown />
-            <DropDown />
+            <DropDown title="Chart Type" options={["Line Chart", "Bar Chart", "Bar Chart Horizontal"]}/>
+            <DropDown title="Cryptocurrency" options={["Bitcoin", "Ethereum", "Dogecoin"]}/>
           </div>
         </div>
 

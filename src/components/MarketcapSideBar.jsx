@@ -23,7 +23,7 @@ export default function MarketcapSideBar() {
     };
 
     fetchCoinData();
-  }, [currentPage]);
+  }, []);
 
   const totalPages = Math.ceil(coins.length / entriesPerPage);
   function handleNextPage(pageNumber) {
