@@ -1,20 +1,14 @@
-import { createStore } from "redux";
+import { configureStore } from '@reduxjs/toolkit';
+import currencyReducer from './slices/currencySlice';
+import chartReducer from './slices/chartSlice'
+import coinSlice from './slices/coinSlice'
 
-const baseCurrencyReducer = (state = { baseCurrency: "USD" }, action) => {
-  if (action.type === "INR") {
-    return {
-      baseCurrency: "INR",
-    };
-  }
+const store = configureStore({
+  reducer: {
+    currency: currencyReducer,
+    chart: chartReducer,
+    coins: coinSlice
+  },
+});
 
-  if (action.type === "EUR") {
-    return {
-      baseCurrency: "EUR",
-    };
-  }
-  return state;
-
-};
-
-const store = createStore(baseCurrencyReducer);
 export default store;

@@ -5,7 +5,7 @@ export default function Exchange() {
   return (
     <>
       <div className="grid col-span-1 row-span-1">
-        <div className="grid grid-rows-4 grid-cols-2 gap-2 shadow-md rounded-xl pb-4 bg-white">
+        <div className="grid grid-rows-4 grid-cols-2 gap-2 shadow-md rounded-xl pb-4 bg-white border border-gray-300">
           <div className="col-span-2 font-bold p-2 pl-8 flex items-center">
             Exchange Coins
           </div>
@@ -16,16 +16,18 @@ export default function Exchange() {
               <option>Ethereum</option>
               <option>Dogecoin</option>
             </select> */}
-            <DropDown
-              title="Currency"
-              options={["Bitcoin", "Ethereum", "Dogecoin"]}
-            />
+            <div className="z-50">
+              <DropDown
+                title="Currency"
+                options={["Bitcoin", "Ethereum", "Dogecoin"]}
+              />
+            </div>
           </div>
           <div className="pl-3">
             <input
               type="number"
               placeholder="Avl bal."
-              className="bg-white text-gray-700 shadow-md h-[56px] border-gray-400 rounded-xl"
+              className="bg-white text-gray-700 shadow-md h-[56px] rounded-xl border border-gray-300"
             ></input>
           </div>
           <div className="flex col-span-1 items-center">
@@ -35,7 +37,7 @@ export default function Exchange() {
               <option>Ethereum</option>
               <option>Dogecoin</option>
             </select> */}
-            <div className="">
+            <div className="z-10">
               <DropDown
                 title="Currency"
                 options={["Bitcoin", "Ethereum", "Dogecoin"]}

@@ -19,7 +19,7 @@ Chart.register(
   Legend
 );
 
-export default function LineChart() {
+export default function MainChart() {
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
@@ -46,7 +46,7 @@ export default function LineChart() {
 
   return (
     <>
-      <div className=" p-4 rounded-xl shadow-md bg-white col-span-3 row-span-1">
+      <div className=" p-4 rounded-xl shadow-md bg-white col-span-3 row-span-1 border border-gray-300">
         <div className="grid col-span-13 gap-2">
           <button className="col-start-3 col-span-1 border-2 rounded-xl shadow-md hover:bg-blue-100 h-[54px]">
             1D

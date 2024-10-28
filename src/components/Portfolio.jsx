@@ -24,7 +24,7 @@ export default function Portfolio() {
 
   return (
     <div className="grid col-span-2 row-span-1">
-      <div className="grid grid-cols-2 grid-rows-[56px_200px] shadow-md rounded-xl bg-white">
+      <div className="grid grid-cols-2 grid-rows-[56px_200px] shadow-md rounded-xl bg-white  border border-gray-300">
         <p className="font-bold p-4 col-span-1">Your Portfolio</p>
         <p className="font-light p-4 col-span-1">
           Total Value: <b className="font-bold">$1000</b>

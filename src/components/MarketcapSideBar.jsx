@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
+import { useSelector } from "react-redux";
+import currencySymbol from "../util/currencySymbol"
 
 export default function MarketcapSideBar() {
   const [coins, setCoins] = useState([]);
@@ -8,12 +10,13 @@ export default function MarketcapSideBar() {
   const [animationDirection, setAnimationDirection] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const entriesPerPage = 12;
+  const selectedCurrency = useSelector((state) => state.currency.selectedCurrency);
 
   useEffect(() => {
     const fetchCoinData = async () => {
       try {
         const response = await fetch(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc`
+          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency}&order=market_cap_desc`
         );
 
         const data = await response.json();
@@ -25,7 +28,7 @@ export default function MarketcapSideBar() {
     };
 
     fetchCoinData();
-  }, []);
+  }, [selectedCurrency]);
 
   const totalPages = Math.ceil(coins.length / entriesPerPage);
   // function handleNextPage(pageNumber) {
@@ -69,7 +72,7 @@ export default function MarketcapSideBar() {
   }
 
   return (
-    <div className="p-4 row-span-3 shadow-md rounded-xl bg-white relative overflow-hidden">
+    <div className="p-4 row-span-3 shadow-md rounded-xl bg-white relative overflow-hidden border border-gray-300">
       <p className="font-bold text-xl pb-[8px] text-center">
         Cryptocurrency by marketcap
       </p>
@@ -86,7 +89,7 @@ export default function MarketcapSideBar() {
       >
         {displayedCoins.map((coin) => (
           <div key={coin.id} className="flex border-b py-[1px]">
-            <div className="p-[10px]">
+            <div className="p-[10px] flex items-center">
               <img
                 src={coin.image}
                 alt="Cryptocurrency Logo"
@@ -96,7 +99,7 @@ export default function MarketcapSideBar() {
             <div className="p-[4px] font-semibold grow">
               <h2 className="">{coin.name}</h2>
               <p className="text-sm text-gray-500">
-                Market Cap: ${numberFormatter(coin.market_cap)}
+                Market Cap: {currencySymbol(selectedCurrency)}{numberFormatter(coin.market_cap)}
               </p>
             </div>
             <div className="flex w-[80px] items-center pr-2">
