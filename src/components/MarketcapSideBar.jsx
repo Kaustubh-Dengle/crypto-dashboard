@@ -9,7 +9,7 @@ export default function MarketcapSideBar() {
   const [currentPage, setCurrentPage] = useState(1);
   const [animationDirection, setAnimationDirection] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
-  const entriesPerPage = 12;
+  const entriesPerPage = 10;
   const selectedCurrency = useSelector((state) => state.currency.selectedCurrency);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function MarketcapSideBar() {
 
   return (
     <div className="p-4 row-span-3 shadow-md rounded-xl bg-white relative overflow-hidden border border-gray-300">
-      <p className="font-bold text-xl pb-[8px] text-center">
+      <p className="font-bold text-l pb-[8px] text-center">
         Cryptocurrency by marketcap
       </p>
       

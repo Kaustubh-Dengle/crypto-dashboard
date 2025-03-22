@@ -1,58 +1,117 @@
+import { useDispatch, useSelector } from "react-redux";
 import Button from "./UI/Button";
 import DropDown from "./UI/DropDown";
+import coinOptions from "../util/coinOptions";
+import { 
+  fetchExchangeRate, 
+  setFromCurrency, 
+  setToCurrency, 
+  setAmount, 
+  setInputError,
+  resetConversion 
+} from "../store/slices/exchangeSlice";
 
 export default function Exchange() {
+  const dispatch = useDispatch();
+  const { 
+    fromCurrency, 
+    toCurrency, 
+    amount, 
+    convertedAmount, 
+    loading, 
+    error,
+    inputError 
+  } = useSelector((state) => state.exchange);
+
+  const handleAmountChange = (e) => {
+    const value = e.target.value;
+    if (value === '') {
+      dispatch(setAmount(''));
+      return;
+    }
+    
+    // Validate input is a number
+    if (isNaN(value) || value < 0) {
+      dispatch(setInputError('Please enter a valid number'));
+      return;
+    }
+    
+    dispatch(setAmount(value));
+    dispatch(setInputError(null));
+  };
+
+  const handleExchange = async () => {
+    if (!amount || isNaN(amount) || amount <= 0) {
+      dispatch(setInputError('Please enter a valid amount'));
+      return;
+    }
+
+    dispatch(resetConversion());
+    try {
+      await dispatch(fetchExchangeRate({ 
+        fromCurrency, 
+        toCurrency,
+        amount: parseFloat(amount)
+      })).unwrap();
+    } catch (error) {
+      console.error('Exchange failed:', error);
+    }
+  };
+
   return (
-    <>
-      <div className="grid col-span-1 row-span-1">
-        <div className="grid grid-rows-4 grid-cols-2 gap-2 shadow-md rounded-xl pb-4 bg-white border border-gray-300">
-          <div className="col-span-2 font-bold p-2 pl-8 flex items-center">
-            Exchange Coins
-          </div>
-          <div className="flex col-span-1 items-center">
-            <p className="text-[#ED7B2B] px-8">Sell</p>
-            {/* <select className="rounded-xl shadow-md p-4 bg-white mb-2 font-bold h-[56px] text-center">
-              <option>Bitcoin</option>
-              <option>Ethereum</option>
-              <option>Dogecoin</option>
-            </select> */}
-            <div className="z-50">
-              <DropDown
-                title="Currency"
-                options={["Bitcoin", "Ethereum", "Dogecoin"]}
-              />
-            </div>
-          </div>
-          <div className="pl-3">
-            <input
-              type="number"
-              placeholder="Avl bal."
-              className="bg-white text-gray-700 shadow-md h-[56px] rounded-xl border border-gray-300"
-            ></input>
-          </div>
-          <div className="flex col-span-1 items-center">
-            <p className="text-[#4C9D8A] px-8">Buy</p>
-            {/* <select className="rounded-xl shadow-md p-4 bg-white mb-2 font-bold h-[56px] text-center">
-              <option>Bitcoin</option>
-              <option>Ethereum</option>
-              <option>Dogecoin</option>
-            </select> */}
-            <div className="z-10">
-              <DropDown
-                title="Currency"
-                options={["Bitcoin", "Ethereum", "Dogecoin"]}
-              />
-            </div>
-          </div>
-          <div className="pl-3 flex items-center">
-            <p className="">Value: 1234</p>
-          </div>
-          <div className="flex col-span-2 justify-center">
-            <Button>Exchange</Button>
+    <div className="grid col-span-1 row-span-1">
+      <div className="grid grid-rows-4 grid-cols-2 gap-2 shadow-md rounded-xl pb-4 bg-white border border-gray-300">
+        <div className="col-span-2 font-bold p-2 pl-8 flex items-center">
+          Exchange Coins
+        </div>
+        <div className="flex col-span-1 items-center">
+          <p className="text-[#ED7B2B] px-8 font-bold">Sell</p>
+          <div className="z-50 w-full">
+            <DropDown
+              title="Currency"
+              options={coinOptions}
+              onSelect={(value) => dispatch(setFromCurrency(value))}
+            />
           </div>
         </div>
+        <div className="pl-3">
+          <input
+            type="number"
+            value={amount}
+            onChange={handleAmountChange}
+            placeholder="Enter amount"
+            className={`bg-white text-gray-700 shadow-md h-[56px] max-w-[150px] mt-[3px] px-3 rounded-xl border ${
+              inputError ? 'border-red-500' : 'border-gray-300'
+            }`}
+          />
+          {inputError && (
+            <p className="text-red-500 text-sm mt-1">{inputError}</p>
+          )}
+        </div>
+        <div className="flex col-span-1 items-center">
+          <p className="text-[#4C9D8A] px-8 font-bold">Buy</p>
+          <div className="z-10 w-full">
+            <DropDown
+              title="Currency"
+              options={coinOptions}
+              onSelect={(value) => dispatch(setToCurrency(value))}
+            />
+          </div>
+        </div>
+        <div className="pl-3 flex items-center">
+          {loading ? (
+            <p>Calculating...</p>
+          ) : error ? (
+            <p className="text-red-500">Error: {error}</p>
+          ) : (
+            <p>Value: {convertedAmount || '0.00'}</p>
+          )}
+        </div>
+        <div className="flex col-span-2 justify-center mt-1">
+          <Button onClick={handleExchange}>Exchange</Button>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

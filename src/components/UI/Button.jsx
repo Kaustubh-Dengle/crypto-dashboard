@@ -1,6 +1,9 @@
-export default function Button({ children }) {
+export default function Button({ children, onClick }) {
   return (
-    <button className="bg-[#1C5DDB] h-[56px] w-[128px] rounded-xl text-white font-bold">
+    <button
+      onClick={onClick}
+      className="bg-[#1C5DDB] h-[56px] text-white font-bold px-8 py-3 rounded-xl hover:bg-blue-800 transition-colors"
+    >
       {children}
     </button>
   );
