@@ -1,33 +1,20 @@
 import "./App.css";
-import MainDashboard from "./components/MainDashboard";
-import Nav from "./components/Nav";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import Dashboard from "./components/Dashboard";
+import CoinDetails from "./components/CoinDetails";
 
 function App() {
-  //   return (
-  //     <>
-  //       <div>
-  //         <div>
-  //           <Nav />
-  //         </div>
-  //         <div className="flex justify-center">
-  //           <div className="flex justify-center h-full w-[90%] p-10 mt-5 bg-gray-100 rounded-md gap-2">
-
-  //               <DropDown />
-  //               <SearchBar />
-
-  //             <MarketcapSideBar />
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </>
-  //   );
   return (
-    <>
-      <Nav />
-      <div className="pr-[128px] pl-[128px] px-[16px] py-[16px]">
-        <MainDashboard />
-      </div>
-    </>
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/coin/:coinId" element={<CoinDetails />} />
+        </Routes>
+      </Router>
+    </Provider>
   );
 }
 

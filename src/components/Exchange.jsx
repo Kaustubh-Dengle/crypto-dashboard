@@ -61,7 +61,7 @@ export default function Exchange() {
   return (
     <div className="grid col-span-1 row-span-1">
       <div className="grid grid-rows-4 grid-cols-2 gap-2 shadow-md rounded-xl pb-4 bg-white border border-gray-300">
-        <div className="col-span-2 font-bold p-2 pl-8 flex items-center">
+        <div className="col-span-2 font-bold p-4 flex items-center">
           Exchange Coins
         </div>
         <div className="flex col-span-1 items-center">

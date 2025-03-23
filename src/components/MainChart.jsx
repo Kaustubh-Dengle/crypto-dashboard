@@ -84,6 +84,12 @@ export default function MainChart() {
 
   const handleTimeSelect = (days) => {
     dispatch(setSelectedDays(days));
+    // Force a data fetch even if the same time span is selected
+    dispatch(fetchChartData({ 
+      coinId: selectedCoin, 
+      days: days, 
+      currency: selectedCurrency 
+    }));
   };
 
   const timeButtons = [
@@ -165,7 +171,7 @@ export default function MainChart() {
   const renderChart = () => {
     if (loading) {
       return (
-        <div className="flex items-center justify-center h-[400px]">
+        <div className="flex items-center justify-center h-[300px]">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
         </div>
       );
@@ -173,7 +179,7 @@ export default function MainChart() {
 
     if (error) {
       return (
-        <div className="flex items-center justify-center h-[400px] text-red-500">
+        <div className="flex items-center justify-center h-[300px] text-red-500">
           Error: {error}
         </div>
       );
@@ -181,7 +187,7 @@ export default function MainChart() {
 
     if (!data) {
       return (
-        <div className="flex items-center justify-center h-[400px] text-gray-500">
+        <div className="flex items-center justify-center h-[300px] text-gray-500">
           No data available
         </div>
       );
@@ -201,19 +207,19 @@ export default function MainChart() {
 
   return (
     <div className="p-4 rounded-xl shadow-md bg-white col-span-3 row-span-1 border border-gray-300">
-      <div className="grid col-span-13 gap-2">
+      <div className="grid col-span-13">
         {timeButtons.map(({ label, days }) => (
           <button
             key={label}
             onClick={() => handleTimeSelect(days)}
-            className={`col-span-1 border-2 rounded-xl shadow-md hover:bg-blue-100 h-[54px] ${
+            className={`aspect-square border-2 rounded-xl shadow-md hover:bg-blue-100 h-[54px] w-[54px] flex items-center justify-center ${
               selectedDays === days ? 'bg-blue-100' : ''
             }`}
           >
             {label}
           </button>
         ))}
-        <div className="col-start-11 col-span-6 flex gap-4">
+        <div className="col-start-11 col-span-6 flex gap-4 justify-end">
           <DropDown
             title="Chart Type"
             options={chartOptions}

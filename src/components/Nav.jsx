@@ -1,11 +1,12 @@
-import logo from "../assets/alma-logo.png"
+import bitcoin from "../assets/bitcoin-btc-logo.svg"
 
 export default function Nav() {
   return (
-    <>
-      <nav className="w-full p-2 h-20 shadow-md">
-        <img src={logo} alt="Almabetter logo" className="p-3 pl-10 h-16 object-center" />
-      </nav>
-    </>
+    <nav className="flex items-center w-full p-2 h-20 shadow-md bg-white">
+      <div className="flex items-center gap-4 pl-10">
+        <img src={bitcoin} alt="Bitcoin" className="h-14 w-14 object-contain" />
+        <p className="text-2xl font-bold text-gray-800">CryptoMetrics</p>
+      </div>
+    </nav>
   );
 }

@@ -1,10 +1,27 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+const isFlatCurrency = (currency) => {
+  const flatCurrencies = ['usd', 'eur', 'gbp', 'jpy', 'inr', 'aud', 'cad', 'sgd', 'hkd', 'cny'];
+  return flatCurrencies.includes(currency.toLowerCase());
+};
+
 export const fetchExchangeRate = createAsyncThunk(
   'exchange/fetchRate',
   async ({ fromCurrency, toCurrency, amount }) => {
+    // If both are flat currencies
+    if (isFlatCurrency(fromCurrency) && isFlatCurrency(toCurrency)) {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/exchange_rates`
+      );
+      if (!response.ok) throw new Error('Failed to fetch exchange rates');
+      const data = await response.json();
+      const fromRate = data.rates[fromCurrency.toLowerCase()].value;
+      const toRate = data.rates[toCurrency.toLowerCase()].value;
+      return { rate: fromRate / toRate, amount };
+    }
+
     // If converting between cryptocurrencies
-    if (fromCurrency !== 'usd' && toCurrency !== 'usd') {
+    if (!isFlatCurrency(fromCurrency) && !isFlatCurrency(toCurrency)) {
       const response = await fetch(
         `https://api.coingecko.com/api/v3/simple/price?ids=${fromCurrency},${toCurrency}&vs_currencies=usd`
       );
@@ -14,13 +31,17 @@ export const fetchExchangeRate = createAsyncThunk(
       return { rate, amount };
     }
     
-    // If converting to/from USD
+    // If converting between crypto and fiat
+    const cryptoCurrency = isFlatCurrency(fromCurrency) ? toCurrency : fromCurrency;
+    const flatCurrency = isFlatCurrency(fromCurrency) ? fromCurrency : toCurrency;
     const response = await fetch(
-      `https://api.coingecko.com/api/v3/simple/price?ids=${fromCurrency === 'usd' ? toCurrency : fromCurrency}&vs_currencies=usd`
+      `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoCurrency}&vs_currencies=${flatCurrency}`
     );
     if (!response.ok) throw new Error('Failed to fetch exchange rate');
     const data = await response.json();
-    const rate = fromCurrency === 'usd' ? 1 / data[toCurrency].usd : data[fromCurrency].usd;
+    const rate = isFlatCurrency(fromCurrency) 
+      ? 1 / data[cryptoCurrency][flatCurrency.toLowerCase()]
+      : data[cryptoCurrency][flatCurrency.toLowerCase()];
     return { rate, amount };
   }
 );

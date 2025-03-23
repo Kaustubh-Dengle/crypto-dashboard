@@ -9,7 +9,7 @@ export default function MarketcapSideBar() {
   const [currentPage, setCurrentPage] = useState(1);
   const [animationDirection, setAnimationDirection] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
-  const entriesPerPage = 10;
+  const entriesPerPage = 11;
   const selectedCurrency = useSelector((state) => state.currency.selectedCurrency);
 
   useEffect(() => {
@@ -31,9 +31,6 @@ export default function MarketcapSideBar() {
   }, [selectedCurrency]);
 
   const totalPages = Math.ceil(coins.length / entriesPerPage);
-  // function handleNextPage(pageNumber) {
-  //   setCurrentPage(pageNumber);
-  // }
 
   function handleNextPage() {
     if (currentPage < totalPages && !isAnimating) {
@@ -72,77 +69,79 @@ export default function MarketcapSideBar() {
   }
 
   return (
-    <div className="p-4 row-span-3 shadow-md rounded-xl bg-white relative overflow-hidden border border-gray-300">
-      <p className="font-bold text-l pb-[8px] text-center">
-        Cryptocurrency by marketcap
-      </p>
+    <div className="p-4 row-span-3 shadow-md rounded-xl bg-white relative border border-gray-300 flex flex-col">
+      <div className="flex items-center justify-center mb-4  border-gray-200">
+        <h2 className="font-bold text-md text-gray-800">Cryptocurrency by Market Cap</h2>
+      </div>
       
+      <div className="flex-1 overflow-hidden">
         <ul
-        className={`transition-transform duration-200 ease-in-out ${
-          animationDirection === "next"
-            ? "translate-x-full opacity-0"
-            : animationDirection === "prev"
-            ? "-translate-x-full opacity-0"
-            : "translate-x-0 opacity-100"
-        }`}
-        style={{width : '100%'}}
-      >
-        {displayedCoins.map((coin) => (
-          <div key={coin.id} className="flex border-b py-[1px]">
-            <div className="p-[10px] flex items-center">
-              <img
-                src={coin.image}
-                alt="Cryptocurrency Logo"
-                className="h-[32px] w-[32px]"
-              ></img>
-            </div>
-            <div className="p-[4px] font-semibold grow">
-              <h2 className="">{coin.name}</h2>
-              <p className="text-sm text-gray-500">
-                Market Cap: {currencySymbol(selectedCurrency)}{numberFormatter(coin.market_cap)}
-              </p>
-            </div>
-            <div className="flex w-[80px] items-center pr-2">
-              <div
-                className={`flex font-semibold text-sm ${
-                  coin.price_change_percentage_24h > 0
-                    ? "text-[#4C9D8A]"
-                    : "text-[#EC7622]"
-                }`}
+          className={`transition-transform duration-200 ease-in-out h-full ${
+            animationDirection === "next"
+              ? "translate-x-full opacity-0"
+              : animationDirection === "prev"
+              ? "-translate-x-full opacity-0"
+              : "translate-x-0 opacity-100"
+          }`}
+        >
+          <div className="h-full overflow-y-auto pr-2">
+            {displayedCoins.map((coin) => (
+              <div 
+                key={coin.id} 
+                className="flex items-start py-2 px-2 border-b border-gray-100 hover:bg-gray-50 transition-colors rounded-lg"
               >
-                <div className="flex items-center text-2xl">
-                  {coin.price_change_percentage_24h > 0 ? (
-                    <TiArrowSortedUp />
-                  ) : (
-                    <TiArrowSortedDown />
-                  )}
+                <div className="flex-shrink-0 w-6 h-6 mt-0.5">
+                  <img
+                    src={coin.image}
+                    alt={`${coin.name} Logo`}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
-                <p className="flex items-center">
-                  {parseFloat(coin.price_change_percentage_24h).toFixed(3)}%
-                </p>
+                <div className="flex-1 min-w-0 ml-2">
+                  <h3 className="font-semibold text-gray-800 text-sm break-words">{coin.name}</h3>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Market Cap: {currencySymbol(selectedCurrency)}{numberFormatter(coin.market_cap)}
+                  </p>
+                </div>
+                <div className="flex items-center ml-3 flex-shrink-0">
+                  <div
+                    className={`flex items-center gap-0.5 font-semibold text-xs ${
+                      coin.price_change_percentage_24h > 0
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {coin.price_change_percentage_24h > 0 ? (
+                      <TiArrowSortedUp className="text-base" />
+                    ) : (
+                      <TiArrowSortedDown className="text-base" />
+                    )}
+                    <span>{parseFloat(coin.price_change_percentage_24h).toFixed(2)}%</span>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </ul>
+        </ul>
+      </div>
 
-      <div className="flex absolute bottom-0 left-0 right-0 text-center pb-2 justify-evenly font-semibold">
+      <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
         <button
           disabled={currentPage === 1}
           onClick={handlePreviousPage}
-          className="bg-gray-300 p-2 rounded disabled:opacity-25"
+          className="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          <FaArrowLeft />
+          <FaArrowLeft className="text-gray-600" />
         </button>
-        <span>
+        <span className="text-sm font-medium text-gray-600">
           Page {currentPage} of {totalPages}
         </span>
         <button
           disabled={currentPage === totalPages}
           onClick={handleNextPage}
-          className="bg-gray-300 p-2 rounded disabled:opacity-25"
+          className="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          <FaArrowRight />
+          <FaArrowRight className="text-gray-600" />
         </button>
       </div>
     </div>

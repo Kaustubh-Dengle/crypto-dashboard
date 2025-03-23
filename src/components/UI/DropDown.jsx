@@ -19,16 +19,16 @@ export default function DropDown({ title = "Select a currency", options, onSelec
     <>
       <div className="relative">
         <button
-          className="flex items-center justify-between w-full h-[56px] px-4 py-2 font-bold text-gray-700 bg-white border border-gray-300 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="flex items-center justify-between w-full h-[56px] px-4 py-2 font-medium text-gray-700 bg-white border border-gray-300 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
           onClick={handleDropdownOpen}
         >
           {selectedOption}
-          <div className="flex w-6 h-6 items-center font-bold px-1">
+          <div className="flex w-6 h-6 items-center font-medium px-1">
             <TiArrowSortedDown />
           </div>
         </button>
         {isOpen && (
-          <div className="absolute mt-2 w-full rounded-xl shadow-lg bg-white border border-gray-300">
+          <div className="absolute mt-2 w-full rounded-xl max-h-[200px] overflow-y-auto shadow-lg bg-white border border-gray-300">
             <ul className="py-2">
               {options.map((option) => (
                 <li
